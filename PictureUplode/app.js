@@ -11,7 +11,7 @@ const ImageModel = require("./image.model")
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb+srv://murtazaali:hXOVq466dFX8hq2s@cluster0.j1kwwam.mongodb.net/ImageDB" , {useNewUrlParser: true}, { useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://murtazaali:hXOVq466dFX8hq2s@cluster0.j1kwwam.mongodb.net/ImageDB");
 
 
 /* app.get('/', (req, res) => {
@@ -31,7 +31,7 @@ const uplode = multer ({
 }).single('testImage')
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.send('uplode image');
 })
 
 app.post('/uplode',(req, res) =>{
@@ -41,14 +41,13 @@ app.post('/uplode',(req, res) =>{
       }
       else{
         const newImage = new ImageModel({
-        name: req.body.name:
+        name: req.body.name,
         image:{
           data:req.file.filename,
           contentType: "image/png"
         }
         })
-        newImage.save()
-        .then(()=> res.send("succeessfully uplode")).catch(err=>console.log(err))
+        newImage.save().then(()=> res.send("succeessfully uplode")).catch(err=>console.log(err))
       }
     })
 })
